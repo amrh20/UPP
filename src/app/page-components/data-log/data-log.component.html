@@ -1,0 +1,395 @@
+
+
+<!--  old national address -->
+ <fieldset class=""  *ngIf="section?.body?.details?.old?.nationalAddress?.length >0">
+  <legend>
+       <label style="color: black;">{{i18n.translate('oldnationalAddressSegment')}}</label>
+  </legend>
+
+
+  <div class="row padTop">
+    <div  style="overflow-x:auto;text-align: center;">
+         <table class="table">
+         <thead style="text-align: center;">
+              <tr [ngClass]="tableCellTextAlign()" style="background-color: #da3f7b; color: #fff;">
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('buildingNumber')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('streetName')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('district')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('city')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('postalCode')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('additionalNumber')}}</th>
+                   
+                   <th style="min-width:300px ;text-align: center;">{{i18n.translate('attachment')}}</th>
+                   <th style="min-width:300px ;text-align: center;">{{i18n.translate('note')}}</th>
+                   <th style="text-align: center;">{{i18n.translate('counter')}}</th>
+              
+              </tr>
+         </thead>
+         <tbody   >
+              <tr *ngFor="let nationalAddress of section?.body?.details?.old?.nationalAddress;let i =index">
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.buildingNumber" name="{{i}}">
+              </td>
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.streetName" name="{{i}}">
+          </td>
+
+          <td>
+               <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.district" name="{{i}}">
+           </td>
+           
+              <td>
+                
+                  
+                   <app-select [hasLabel]="false" [field]="nationalAddress?.city" name="city"
+                   [labelTextReadMode]="i18n.translate('city')" [labelTextWriteMode]="i18n.translate('city')"
+                   [hasColumnBreak]="true" [lov]="lov?.city" [required]="true" [isReadOnly]="true"
+                   >
+              </app-select>
+              </td>
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.postalCode" name="{{i}}">
+              </td>
+
+              <td>
+                   <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.additionalNumber" name="{{i}}">
+                   </td>
+
+
+              <td>
+                   <div class="row">
+                        <app-attachment  [hasLabel]="false" [field]="nationalAddress?.attachment" name="attachment"
+                             [hasColumnBreak]="true"
+                             [required]="true" [isReadOnly]="true"
+                            >
+                        </app-attachment>
+                   </div>
+              </td>
+
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.note" name="{{i}}">
+              </td>
+
+              <td>
+              <input disabled type="text" class="form-control" [(ngModel)]="nationalAddress.counter" name="{{i}}">
+              </td>
+
+
+             
+              </tr>
+         </tbody>
+         </table>
+    </div>
+    </div>
+
+
+ </fieldset>
+
+
+<!-- new national address -->
+
+ <fieldset class="" *ngIf="section?.body?.details?.new?.nationalAddress?.length >0">
+  <legend>
+       <label style="color: black;">{{i18n.translate('newnationalAddressSegment')}}</label>
+  </legend>
+
+
+  <div class="row padTop">
+    <div  style="overflow-x:auto;text-align: center;">
+         <table class="table">
+         <thead style="text-align: center;">
+              <tr [ngClass]="tableCellTextAlign()" style="background-color: #da3f7b; color: #fff;">
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('buildingNumber')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('streetName')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('district')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('city')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('postalCode')}}</th>
+                   <th style="min-width:166px ;text-align: center;">{{i18n.translate('additionalNumber')}}</th>
+                   
+                   <th style="min-width:300px ;text-align: center;">{{i18n.translate('attachment')}}</th>
+                   <th style="min-width:300px ;text-align: center;">{{i18n.translate('note')}}</th>
+                   <th style="text-align: center;">{{i18n.translate('counter')}}</th>
+              
+              </tr>
+         </thead>
+         <tbody   >
+              <tr *ngFor="let nationalAddress of section?.body?.details?.new?.nationalAddress;let i =index">
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.buildingNumber" name="{{i}}">
+              </td>
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.streetName" name="{{i}}">
+              </td>
+
+              
+          <td>
+               <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.district" name="{{i}}">
+           </td>
+           
+              <td>
+                
+                  
+                   <app-select [hasLabel]="false" [field]="nationalAddress?.city" name="city"
+                   [labelTextReadMode]="i18n.translate('city')" [labelTextWriteMode]="i18n.translate('city')"
+                   [hasColumnBreak]="true" [lov]="lov?.city" [required]="true" [isReadOnly]="true"
+                   >
+              </app-select>
+              </td>
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.postalCode" name="{{i}}">
+              </td>
+
+              <td>
+                   <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.additionalNumber" name="{{i}}">
+                   </td>
+
+
+              <td>
+                   <div class="row">
+                        <app-attachment  [hasLabel]="false" [field]="nationalAddress?.attachment" name="attachment"
+                             [hasColumnBreak]="true"
+                             [required]="true" [isReadOnly]="true"
+                            >
+                        </app-attachment>
+                   </div>
+              </td>
+
+              <td>
+              <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="nationalAddress.note" name="{{i}}">
+              </td>
+
+              <td>
+              <input disabled type="text" class="form-control" [(ngModel)]="nationalAddress.counter" name="{{i}}">
+              </td>
+
+
+             
+              </tr>
+         </tbody>
+         </table>
+    </div>
+    </div>
+
+
+ </fieldset>
+
+
+ <!-- old decument  -->
+
+ <fieldset class="" *ngIf="section?.body?.details?.old?.officialDocument?.length >0">
+  <legend>
+       <label style="color: black;">{{i18n.translate('oldofficialDocumentSegment')}}</label>
+  </legend>
+  
+  <div class="panel panel-default">
+       <div class="panel-body">
+
+     
+
+       
+        <div class="row padTop">
+          <div  style="overflow-x:auto;text-align: center;">
+            <table class="table">
+              <thead style="text-align: center;">
+                <tr [ngClass]="tableCellTextAlign()" style="background-color: #da3f7b; color: #fff;">
+
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('documentType')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('documentNumber')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('issuePlace')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('issueDate')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('expiryDate')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('profession')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('version')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('attachment')}}</th>
+                 
+                </tr>
+              </thead>
+              <tbody   >
+                <tr *ngFor="let officialDocument of section?.body?.details?.old?.officialDocument;let i =index">
+                  <td>
+                          
+                    <app-select [hasLabel]="false" [field]="officialDocument?.documentType" name="documentType"
+                         [labelTextReadMode]="i18n.translate('documentType')"
+                         [labelTextWriteMode]="i18n.translate('documentType')" [hasColumnBreak]="true"
+                         [lov]="lov?.documentType" [required]="true" [isReadOnly]="true"
+                        >
+                    </app-select>
+                        
+                  </td>
+                  <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.documentNumber" name="{{i}}">
+                  </td>
+                  <td>
+                        <app-select [hasLabel]="false" [field]="officialDocument?.issuePlace" name="issuePlace"
+                              [labelTextReadMode]="i18n.translate('issuePlace')"
+                              [labelTextWriteMode]="i18n.translate('issuePlace')" [hasColumnBreak]="true"
+                              [lov]="lov?.issuePlace" [required]="true" [isReadOnly]="true"
+                              >
+                        </app-select>
+                  </td>
+                  <td>
+                     <app-datepicker 
+                         [hasLabel]="false"
+                         [field]="officialDocument?.issueDate" name="issueDate"
+                         [labelTextReadMode]="i18n.translate('issueDate')"
+                         [labelTextWriteMode]="i18n.translate('issueDate')" [hasColumnBreak]="true"
+                         [required]="false" [isReadOnly]="true">
+                    </app-datepicker>
+                  </td>
+
+
+                  <td>
+                    <app-datepicker 
+                        [hasLabel]="false"
+                        [field]="officialDocument?.expiryDate" name="expiryDate"
+                        [labelTextReadMode]="i18n.translate('expiryDate')"
+                        [labelTextWriteMode]="i18n.translate('expiryDate')" [hasColumnBreak]="true"
+                        [required]="false" [isReadOnly]="true">
+                   </app-datepicker>
+                 </td>
+
+
+                 <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.profession" name="{{i}}">
+                  </td>
+
+                  <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.version" name="{{i}}">
+                  </td>
+
+
+
+                  <td>
+                    <div class="row">
+                         <app-attachment  [hasLabel]="false" [field]="officialDocument?.attachment" name="attachment"
+                              [hasColumnBreak]="true"
+                              [required]="true" [isReadOnly]="true"
+                              >
+                         </app-attachment>
+                    </div>
+                  </td>
+
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+             
+
+           
+       </div>
+  </div>
+</fieldset>
+
+
+
+ <!-- new decument  -->
+
+ <fieldset class="" *ngIf="section?.body?.details?.new?.officialDocument?.length >0">
+  <legend>
+       <label style="color: black;">{{i18n.translate('newofficialDocumentSegment')}}</label>
+  </legend>
+  
+  <div class="panel panel-default">
+       <div class="panel-body">
+
+     
+
+       
+        <div class="row padTop">
+          <div  style="overflow-x:auto;text-align: center;">
+            <table class="table">
+              <thead style="text-align: center;">
+                <tr [ngClass]="tableCellTextAlign()" style="background-color: #da3f7b; color: #fff;">
+
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('documentType')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('documentNumber')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('issuePlace')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('issueDate')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('expiryDate')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('profession')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('version')}}</th>
+                  <th style="min-width:300px ;text-align: center;">{{i18n.translate('attachment')}}</th>
+                 
+                </tr>
+              </thead>
+              <tbody   >
+                <tr *ngFor="let officialDocument of section?.body?.details?.new?.officialDocument;let i =index">
+                  <td>
+                          
+                    <app-select [hasLabel]="false" [field]="officialDocument?.documentType" name="documentType"
+                         [labelTextReadMode]="i18n.translate('documentType')"
+                         [labelTextWriteMode]="i18n.translate('documentType')" [hasColumnBreak]="true"
+                         [lov]="lov?.documentType" [required]="true" [isReadOnly]="true"
+                        >
+                    </app-select>
+                        
+                  </td>
+                  <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.documentNumber" name="{{i}}">
+                  </td>
+                  <td>
+                        <app-select [hasLabel]="false" [field]="officialDocument?.issuePlace" name="issuePlace"
+                              [labelTextReadMode]="i18n.translate('issuePlace')"
+                              [labelTextWriteMode]="i18n.translate('issuePlace')" [hasColumnBreak]="true"
+                              [lov]="lov?.issuePlace" [required]="true" [isReadOnly]="true"
+                              >
+                        </app-select>
+                  </td>
+                  <td>
+                     <app-datepicker 
+                         [hasLabel]="false"
+                         [field]="officialDocument?.issueDate" name="issueDate"
+                         [labelTextReadMode]="i18n.translate('issueDate')"
+                         [labelTextWriteMode]="i18n.translate('issueDate')" [hasColumnBreak]="true"
+                         [required]="false" [isReadOnly]="true">
+                    </app-datepicker>
+                  </td>
+
+
+                  <td>
+                    <app-datepicker 
+                        [hasLabel]="false"
+                        [field]="officialDocument?.expiryDate" name="expiryDate"
+                        [labelTextReadMode]="i18n.translate('expiryDate')"
+                        [labelTextWriteMode]="i18n.translate('expiryDate')" [hasColumnBreak]="true"
+                        [required]="false" [isReadOnly]="true">
+                   </app-datepicker>
+                 </td>
+
+
+                 <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.profession" name="{{i}}">
+                  </td>
+
+                  <td>
+                    <input disabled="{{isReadOnly}}" type="text" class="form-control" [(ngModel)]="officialDocument.version" name="{{i}}">
+                  </td>
+
+
+
+                  <td>
+                    <div class="row">
+                         <app-attachment  [hasLabel]="false" [field]="officialDocument?.attachment" name="attachment"
+                              [hasColumnBreak]="true"
+                              [required]="true" [isReadOnly]="true"
+                              >
+                         </app-attachment>
+                    </div>
+                  </td>
+
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+             
+
+           
+       </div>
+  </div>
+</fieldset>

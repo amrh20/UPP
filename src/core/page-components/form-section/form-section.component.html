@@ -1,0 +1,150 @@
+<div [ngClass]="highlightedSectionToggle()">
+
+  <div class="panel-heading" role="button" [id]="sectionId()">
+
+
+      <!-- <a role="button" #dataToggle (click)="toggleHighlighted()" data-toggle="collapse" href="{{'#collapse' + sectionId()}}"
+         attr.aria-controls="{{'collapse' + sectionId()}}"  aria-expanded=""> -->
+
+      <div class="head-wrapper" role="button" #dataToggle
+        (click)="toggleHighlighted()" data-toggle="collapse" attr.aria-controls="{{'collapse' + sectionId()}}">
+
+        <div style="display: flex;justify-content: center;flex-direction: column;">
+          <h4 class="panel-title" [ngClass]="isWindowsOs()"> {{sectionName}} </h4>
+          <span class="processedByDesktop" *ngIf="section.header?.processedBy">
+            <span>{{i18n.translate('processedBy')}}: </span><span>{{section?.header?.processedBy}}</span><span
+              class="noRTL"> {{processingDate}}</span>
+          </span>
+        </div>
+
+
+        <div class="mobileIdent processedByMobile" [ngClass]="noProcessingDate()">
+          <h4 *ngIf="section?.header?.processedBy; else noProcessedBY">{{section?.header?.processedBy}}</h4>
+          <h4 class="noRTL" *ngIf="section?.header?.processedBy; else noProcessedBY">{{processingDate}}</h4>
+        </div>
+
+        <ng-template #noProcessedBY>
+        </ng-template>
+
+        <div style="display: flex;align-items: center;">
+
+          <div (click)="toggleSmallProfileInfo($event, 'receipient')" class="delegated-box"
+            *ngIf="section?.header?.personTo; else noPersonTo">
+            <div class="delegated-box-img"><img src="{{section?.header?.personToThumbnail}}"></div>
+            <div class="delegated-box-txt">
+              <h5 class="panel-title">{{section?.header?.personTo}}</h5>
+            </div>
+          </div>
+
+          <ng-template #noPersonTo>
+          </ng-template>
+
+          <div (click)="toggleSmallProfileInfo($event, 'delegate')" class="delegated-box"
+            *ngIf="section?.header?.delegatedTo; else noDelegatedTo">
+            <div class="delegated-box-img"><img src="{{section?.header?.delegatedToThumbnail}}"></div>
+            <div class="delegated-box-txt">
+              <h5 class="panel-title"><span
+                  class="delegatedTo">{{i18n.translate('delegateTo')}}</span>{{section?.header?.delegatedTo}}</h5>
+            </div>
+          </div>
+
+          <ng-template #noDelegatedTo>
+          </ng-template>
+
+          <div [attr.fb-id]="'popupReceipient'+sectionId()" class="delegate-info-pop-up"
+            (blur)="hideElement('receipient', $event)" [ngClass]="rtlDir('receipient')" tabindex="-1"
+            (click)="$event.stopPropagation()">
+            <div class="innerPopUp">
+              <div class="headerPopUp">
+                <div class="headerPopUpImg" [ngClass]="rtlFloatRight()"><img
+                    src="{{section?.header?.personToThumbnail}}"></div>
+                <div class="headerPopUpTxtBox" [ngClass]="rtlFloatRight()">
+                  <div class="headerPopUpTxt">
+                    <h4 class="panel-title">{{receipient?.profile?.name}}</h4>
+                  </div>
+                  <div class="headerPopUpTxt">
+                    <h5 class="panel-title">{{receipient?.profile?.job?.name}}</h5>
+                  </div>
+                </div>
+                <div class="headerPopUpInfoBox" [ngClass]="rtlFloatRight()">
+                  <div><i class="fa fa-phone" aria-hidden="true"></i><span
+                      (click)="locationHref('tel:'+ receipient?.profile?.contact?.work)">{{receipient?.profile?.contact?.work}}</span>
+                  </div>
+                  <div><i class="fa fa-mobile" aria-hidden="true"></i><span
+                      (click)="locationHref('tel:'+ receipient?.profile?.contact?.mobile)">{{receipient?.profile?.contact?.mobile}}</span>
+                  </div>
+                  <div><i class="fa fa-envelope" aria-hidden="true"></i><span
+                      (click)="locationHref('mailto:'+ receipient?.profile?.email)">{{receipient?.profile?.email}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div [attr.fb-id]="'popupDelegate'+sectionId()" class="delegateTo-info-pop-up"
+            (blur)="hideElement('delegate', $event)" [ngClass]="rtlDir('delegate')" tabindex="-1"
+            (click)="$event.stopPropagation()">
+            <div class="innerPopUp">
+              <div class="headerPopUp">
+                <div class="headerPopUpImg" [ngClass]="rtlFloatRight()"><img
+                    src="{{section?.header?.delegatedToThumbnail}}"></div>
+                <div class="headerPopUpTxtBox" [ngClass]="rtlFloatRight()">
+                  <div class="headerPopUpTxt">
+                    <h4 class="panel-title">{{delegate?.profile?.name}}</h4>
+                  </div>
+                  <div class="headerPopUpTxt">
+                    <h5 class="panel-title">{{delegate?.profile?.job?.name}}</h5>
+                  </div>
+                </div>
+                <div class="headerPopUpInfoBox" [ngClass]="rtlFloatRight()">
+                  <div><i class="fa fa-phone" aria-hidden="true"></i><span
+                      (click)="locationHref('tel:'+ receipient?.profile?.contact?.work)">{{delegate?.profile?.contact?.work}}</span>
+                  </div>
+                  <div><i class="fa fa-mobile" aria-hidden="true"></i><span
+                      (click)="locationHref('tel:'+ delegate?.profile?.contact?.mobile)">{{delegate?.profile?.contact?.mobile}}</span>
+                  </div>
+                  <div><i class="fa fa-envelope" aria-hidden="true"></i><span
+                      (click)="locationHref('mailto:'+ delegate?.profile?.email)">{{delegate?.profile?.email}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="display: flex;align-items: center;">
+          <div class="statusBoxInner">
+            <div [ngClass]="commentsIcons()" class="edit-icon edit-document" *ngIf="section.header?.hasComments"></div>
+            <div [ngClass]="commentsIcons()" class="edit-icon edit-document-white" *ngIf="section.header?.hasComments">
+            </div>
+            <span  *ngIf="section?.body?.details?.decision?.key; else noStatus"
+            [ngClass]="{'success': sectionStatusValue == 'Approve'}"
+            class="status"
+            >
+              {{sectionStatusValue}}
+          </span>
+          </div>
+
+          <ng-template #noStatus>
+          </ng-template>
+
+        </div>
+
+        <div class="arrow" [ngClass]="rtlFloatRight()">
+          <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+
+      </div>
+
+
+  </div>
+
+  <!-- <div id="{{'collapse' + sectionId()}}" class="panel-collapse collapse" role="tabpanel" attr.aria-labelledby="{{sectionId()}}"> -->
+  <div id="{{'collapse' + sectionId()}}" class="panel-collapse collapse" role="tabpanel"
+    attr.aria-labelledby="{{sectionId()}}">
+    <ng-container *ngComponentOutlet="sectionFormComponent;
+      ndcDynamicInputs: input"></ng-container>
+  </div>
+
+</div>

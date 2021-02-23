@@ -1,0 +1,40 @@
+<div class="panel-body">
+
+  <div class="row">
+    <app-datepicker *ngIf="isReadOnly || section?.header?.processingDate" [field]="section?.body?.processingDate"
+      name="processingDate" [labelTextReadMode]="i18n.translate('processingDate')"
+      [labelTextWriteMode]="i18n.translate('processingDate')" [hasColumnBreak]="false" [required]="false"
+      [isReadOnly]="true">
+    </app-datepicker>
+  </div>
+  
+
+
+
+  <app-data-log [section]="section" [lov]="lov"></app-data-log>
+
+
+  <div class="terms-wrapper">
+    <div>
+      <app-checkbox [field]="section?.body?.details?.udpateErp" name="udpateErp"
+           [labelTextReadMode]="i18n.translate('udpateErp')"
+           [labelTextWriteMode]="i18n.translate('udpateErp')" [hasColumnBreak]="false"
+           [required]="false" [isReadOnly]="section?.header?.readOnly"
+           (checked)="handleCheckboxChange('udpateErp' , $event);">
+      </app-checkbox>
+  </div>
+  
+    <div>
+      <app-textarea [field]="section?.body?.details?.comment" name="comment"
+        [labelTextReadMode]="i18n.translate('comment')" [labelTextWriteMode]="i18n.translate('comment')"
+        [hasColumnBreak]="false" [required]="false" [minLength]='15' [maxlength]='500'
+        [errorMessage]="i18n.translate('lenghtMin15Max500')"
+        [isReadOnly]="section?.header?.readOnly">
+      </app-textarea>
+    </div>
+  
+  
+  </div>
+
+
+</div>

@@ -1,0 +1,44 @@
+<div [ngClass]="formComponent()">
+    <div *ngIf="isReadOnly">
+        <label for="" *ngIf="hasLabel">{{labelTextReadMode}}</label>
+        <div class="readOnly" [innerHTML]="field?.value ? parseNewlines(field?.value) : lovResolver(field?.key)"></div>
+    </div>
+    <div *ngIf="!isReadOnly">
+
+        <div *ngIf="!disabled" #other_content>
+
+            <!-- <ng-template #other_content> -->
+            <label for="" *ngIf="hasLabel">{{labelTextWriteMode}}</label>
+            <select id="" (change)="onSelectElement($event)" class="form-control" [ngClass]="rtlDir()" [required]="required">
+      <option class ="select-option" [ngValue]="null" [selected]="field?.key === null">{{i18n.translate('selectYourOption')}}</option>
+      <ng-template ngFor let-option [ngForOf]="lov?.options" let-i="index">
+        <option  *ngIf="parentValue === null || parentValue === undefined || option?.parentValue === parentValue"
+        [value]="option?.value"
+        class ="select-option"
+        [selected]="field?.key === option?.value"
+        >{{option?.description}}</option>
+      </ng-template>
+    </select>
+            <!-- </ng-template> -->
+        </div>
+        <div *ngIf="disabled" #other_content>
+
+            <!-- <ng-template #other_content> -->
+            <!-- <label for="">{{labelTextWriteMode}}</label> -->
+            <div class="col-xs-9" [ngClass]="rtlLabel()" *ngIf="hasLabel"><label for="">{{labelTextWriteMode}}</label></div>
+            <div *ngIf="!required && hasLabel" class="col-xs-3" [ngClass]="rtlOptionalLabel()"><span class="optional">{{i18n.translate('optional')}}</span></div>
+
+            <select id="" (change)="onSelectElement($event)" class="form-control" [ngClass]="rtlDir()" [required]="required" disabled>
+      <option class ="select-option" [ngValue]="null" [selected]="field?.key === null">{{i18n.translate('selectYourOption')}}</option>
+      <ng-template ngFor let-option [ngForOf]="lov?.options" let-i="index">
+        <option  *ngIf="parentValue === null || parentValue === undefined || option?.parentValue === parentValue"
+        [value]="option?.value"
+        class ="select-option"
+        [selected]="field?.key === option?.value"
+        >{{option?.description}}</option>
+      </ng-template>
+    </select>
+            <!-- </ng-template> -->
+        </div>
+    </div>
+</div>

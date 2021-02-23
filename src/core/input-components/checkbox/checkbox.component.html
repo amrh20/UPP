@@ -1,0 +1,18 @@
+<div>
+    <div *ngIf="isReadOnly;else other_content">
+        <div [ngClass]="rtlCheckboxClasses()" class="checkbox">
+            <input id="{{checkboxId}}{{randomID}}" type="checkbox" [checked]="readOnlyChecked()" onclick="return false;">
+            <label for="{{checkboxId}}{{randomID}}" class="checkboxInput"></label>
+            <label for="{{checkboxId}}{{randomID}}" *ngIf="hasLabel">{{labelTextReadMode}}</label>
+        </div>
+    </div>
+
+    <ng-template #other_content>
+        <div [ngClass]="rtlCheckboxClasses()" class="checkbox">
+            <input id="{{checkboxId}}{{randomID}}" type="checkbox" *ngIf="!disabled" name="{{name}}" (change)="toggle($event)" [required]="required" [checked]="readOnlyChecked()">
+            <input id="{{checkboxId}}{{randomID}}" type="checkbox" *ngIf="disabled" name="{{name}}" [required]="required" [checked]="readOnlyChecked()" disabled>
+            <label for="{{checkboxId}}{{randomID}}" class="checkboxInput"></label>
+            <label for="{{checkboxId}}{{randomID}}" *ngIf="hasLabel">{{labelTextWriteMode}}</label>
+        </div>
+    </ng-template>
+</div>

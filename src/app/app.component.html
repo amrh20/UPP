@@ -1,0 +1,267 @@
+<div class="loading-panebpm" id="id1" *ngIf="!isReady && !isSuccessfullySubmitted">
+  <div class="spinner-image">
+    <div id="loader-wrapper">
+      <div id="loader" [ngClass]="loaderArabic()"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" [ngClass]="containerClass()" *ngIf="noError ==false">
+  <div  [ngClass]="messageBoxClasses()">
+    <a  class="closeMessage" (click)="messageClose(message)"><i class="fa fa-times" aria-hidden="true"></i></a>
+    <div class="textMessage" [innerHTML] = "message"></div>
+</div>
+</div>
+
+  <div class="container" [ngClass]="containerClass()" *ngIf="isReady && !isSuccessfullySubmitted">
+    <div class="sevice-wrapper">
+
+    <app-message-box
+      *ngIf="!isValidLoad"
+      [messages]="form?.messages?.error"
+      [type]="'error'">
+    </app-message-box>
+  
+    <ng-container *ngIf="isValidLoad">
+  
+    <div class="mobileStatus" *ngIf="isValidLoad && form?.header?.status.key !== 'NEW'"></div>
+  
+    <div class="row titleForm"  *ngIf="isValidLoad && form?.header?.status.key === 'NEW';else other_content">
+  
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div>
+          <h2>{{i18n.translate('formTitle')}}</h2>
+        </div>
+      </div>
+  
+    </div>
+  
+    <ng-template #other_content >
+      <div class="titleForm"  *ngIf="isValidLoad">
+  
+        <div>
+            <h2>{{i18n.translate('formTitle')}}</h2>
+        </div>
+  
+          <div style="display: flex;align-items: center;"> 
+            <span>
+              <a *ngIf="showPrintIcon()" role="button"(click)="print()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23.53" height="21.702" viewBox="0 0 23.53 21.702">
+                  <g id="printer_1_" data-name="printer (1)" transform="translate(0 0)">
+                    <path id="Path_14657" data-name="Path 14657" d="M21.87,14.648H19.234v-4.3a.711.711,0,0,0-.711-.711H5.007a.711.711,0,0,0-.711.711v4.3H1.66A1.662,1.662,0,0,0,0,16.307v9.127a1.662,1.662,0,0,0,1.66,1.66H4.3v3.529a.711.711,0,0,0,.711.711H18.523a.711.711,0,0,0,.711-.711V27.095H21.87a1.662,1.662,0,0,0,1.66-1.66V16.307A1.662,1.662,0,0,0,21.87,14.648ZM5.718,11.056H17.811v3.592H5.718ZM17.811,29.912H5.718V22.855H17.811Zm4.3-4.477a.24.24,0,0,1-.237.237H19.234V22.143a.711.711,0,0,0-.711-.711H5.007a.711.711,0,0,0-.711.711v3.529H1.66a.24.24,0,0,1-.237-.237V16.307a.24.24,0,0,1,.237-.237H21.87a.24.24,0,0,1,.237.237v9.127Z" transform="translate(0 -9.633)" fill="#4f008c"/>
+                    <ellipse id="Ellipse_647" data-name="Ellipse 647" cx="1.012" cy="1.012" rx="1.012" ry="1.012" transform="translate(17.511 8.107)" fill="#4f008c"/>
+                    <path id="Path_14658" data-name="Path 14658" d="M89.592,163.822H83.118a.711.711,0,1,0,0,1.423h6.473a.711.711,0,1,0,0-1.423Z" transform="translate(-74.59 -149.196)" fill="#4f008c"/>
+                    <path id="Path_14659" data-name="Path 14659" d="M89.592,193.623H83.118a.711.711,0,0,0,0,1.423h6.473a.711.711,0,0,0,0-1.423Z" transform="translate(-74.59 -176.17)" fill="#4f008c"/>
+                  </g>
+                </svg>
+            
+            </a>
+          </span>
+            <div *ngIf="form.inboxItem" class="flags-container" tabindex="1">
+              <span><i class="fa fa-flag flag_{{form.inboxItem.flagPriority}}" (click)="flagOptionsHandler()" aria-hidden="true"></i></span>
+              <ul *ngIf="showFlagOptions" class="dropdown" [ngClass]="rtlFloatLeft()">
+                <li [ngClass]="rtlFloatLeft()">
+                  <a><i class="fa fa-flag flag_0" (click)="setFlagPriority('0')" aria-hidden="true"></i>
+                  </a></li>
+                <li [ngClass]="rtlFloatLeft()"><a>
+                  <i class="fa fa-flag flag_2" (click)="setFlagPriority('2')" aria-hidden="true">
+
+                  </i></a></li>
+                <li [ngClass]="rtlFloatLeft()"><a><i class="fa fa-flag flag_3" (click)="setFlagPriority('3')" aria-hidden="true"></i></a></li>
+                <li [ngClass]="rtlFloatLeft()"><a><i class="fa fa-flag flag_1" (click)="setFlagPriority('1')" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+            
+          </div>
+  
+      </div>
+    </ng-template>
+  
+    <div class="formInfo" *ngIf="isValidLoad">
+    <div class="profileData paddingReverseZero" [ngClass]="rtlFloatRight()">
+      <div (click)="onProfileFormClick()" id="profileForm" class="image">
+        <img src="{{form.header.requesterPhoto}}">
+      </div>
+      <div class="profileInner" [ngClass]="nameOnly(form.header.status.key)">
+          <span class="nameProfile" title="{{form.header.requesterName}}">{{stateMachineService.getShortName(form.header.requesterName)}}</span>
+          <span class="formId" *ngIf="form?.header?.status.key !== 'NEW'">{{form.header.formId}}</span>
+          <span class="requestDate noRTL" *ngIf="form?.header?.status.key !== 'NEW'">{{creationDate}}</span>
+      </div>
+    </div>
+    <div class="icons paddingZero" [ngClass]="rtlFloatLeft()" 
+         *ngIf="form?.header?.status.key !== 'NEW'">
+      <section class="icon-actions">
+        <div *ngIf="form.inboxItem && feedBackIcon" (click)="onFeedbackFormClick()" id="feedbackForm" class="feedback">
+          <span *ngIf="feedBackIcon" class="fa fa-comments-o {{feedBackIcon}}"></span>
+        </div>
+        <div (click)="onCommentsFormClick()" id="editForm" class="comments" *ngIf="form?.commentsDrop?.length > 0">
+       
+             <img src="../assets/images/book-icon.png" alt="">
+             <div class="badgeComments" *ngIf="form?.commentsDrop"><span>{{form.commentsDrop?.length}}</span></div>
+          
+        </div>
+        <div [ngClass]="statusClass(form.header.status.key)">
+          <span>{{form.header.status.value}}</span>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+    <app-profile-section
+      [profile]="form?.profileInfoDrop"
+      (close)="onProfileFormClick()">
+    </app-profile-section>
+    <app-comment-section
+      [comments]="form.commentsDrop"
+      (close)="onCommentsFormClick()">
+    </app-comment-section>
+    <app-feedback-section
+      *ngIf="form.inboxItem"
+      [profile]="form?.profileInfoDrop"
+      [inboxItem]="form.inboxItem"
+      (close)="onFeedbackFormClick()"
+      (changeFeedbackStatus) = "changeFeedbackStatus($event)"
+      >
+    </app-feedback-section>
+  
+    <app-message-box
+      [messages]="form?.messages?.info"
+      [type]="'info'">
+    </app-message-box>
+    <app-message-box
+      [messages]="form?.messages?.warning"
+      [type]="'warning'">
+    </app-message-box>
+    <app-message-box
+      [messages]="form?.messages?.error"
+      [type]="'error'">
+    </app-message-box>
+  
+    <!-- <form *ngIf="isValidLoad && isOnBehalfOfAuthorized() && !hrRequestIsSubmitted">
+  
+      <div class="panel-group container container-fluid" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="row col-sm-12">
+          <app-form-section
+            class="app-form-section"
+            [section]= "hrRequestDetailsSection"
+            [isOpen] ="i === sections.length - 1"
+            [lov]="form?.lovs"
+            [isReadOnly]="false"
+            [controllers] ="null">
+          </app-form-section>
+        </div>
+      </div>
+  
+      <div class="form-buttons desktopButtons buttonMargin" *ngIf="!sections[sections.length-1].header.readOnly">
+        <button class="btn btn-secondary " type="button" (click)="resetFormHr()"><span>{{i18n.translate('reset')}}</span></button>
+        <button type="button" [disabled]="!validHrForm()" (click)="onHrSubmit()" class="btn btn-primary "><i *ngIf = "isSubmitting.hrSubmit" [ngClass]="rtlFloatRight()" class="fa fa-spinner fa-spin form-spinner"></i><span>{{i18n.translate('submit')}}</span></button>
+      </div>
+  
+      <div class="form-buttons mobileButtons buttonMargin" *ngIf="!sections[sections.length-1].header.readOnly">
+        <button type="button" [disabled]="!validHrForm()" (click)="onHrSubmit()" class="btn btn-primary "><i *ngIf = "isSubmitting.hrSubmit" [ngClass]="rtlFloatRight()" class="fa fa-spinner fa-spin form-spinner"></i><span>{{i18n.translate('submit')}}</span></button>
+        <button class="btn btn-secondary " type="button" (click)="resetFormHr()"><span>{{i18n.translate('reset')}}</span></button>
+      </div>
+  
+    </form> -->
+  
+    <form  #f="ngForm" *ngIf="isValidLoad && (hrRequestIsSubmitted || !isOnBehalfOfAuthorized())">
+  
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div *ngFor="let section of sections; let i = index" class="accordion-row">
+          <app-form-section
+            class="app-form-section"
+            [section]= section
+            [isOpen] ="i === sections.length - 1"
+            [lov]="form?.lovs"
+            [isReadOnly]="section.header.readOnly"
+            [controllers] ="sectionsController">
+          </app-form-section>
+        </div>
+      </div>
+  
+      <div *ngIf="!sections[sections.length-1].header.readOnly">
+        <div *ngIf="form?.lovs?.decision && form?.lovs?.decision?.type === 'button'">
+          <div class="form-buttons desktopButtons buttonMargin">
+            <button class="btn btn-secondary" type="button" (click)="resetForm()"><span>{{i18n.translate('reset')}}</span></button>
+            <button
+              *ngFor="let item of form?.lovs?.decision?.options"
+              type="button"
+              class="btn lov-buttons"
+              [disabled]="!validForm(item?.value)"
+              (click)="onSubmit(item?.value)"
+              [ngClass]="buttonTypes(item?.value)"
+            >
+              <i *ngIf = "isSubmitting[item?.value]" [ngClass]="rtlFloatRight()" 
+              class="fa fa-spinner fa-spin form-spinner"></i><span>{{item?.description}}</span>
+            </button>
+          </div>
+  
+          <div class="form-buttons mobileButtons buttonMargin">
+            <button
+              *ngFor="let item of form?.lovs?.decision?.options"
+              type="button"
+              class="btn"
+              [disabled]="!validForm(item?.value)"
+              (click)="onSubmit(item.value)"
+              [ngClass]="buttonTypes(item?.value)"
+            >
+              <i *ngIf = "isSubmitting[item?.value]" [ngClass]="rtlFloatRight()" class="fa fa-spinner fa-spin form-spinner"></i><span>{{item?.description}}</span>
+            </button>
+            <button class="btn btn-secondary " type="button" (click)="resetForm()"><span>{{i18n.translate('reset')}}</span></button>
+          </div>
+        </div>
+  
+        <div *ngIf="!form?.lovs?.decision || form?.lovs?.decision?.type !== 'button'">
+          <div class="form-buttons desktopButtons">
+            <button class="btn btn-secondary " type="button" (click)="resetForm()"><span>{{i18n.translate('reset')}}</span></button>
+            <button type="button" class="btn btn-primary " [disabled]="!validForm('SUBMIT')" (click)="onSubmit('SUBMIT')"><i *ngIf = "isSubmitting['SUBMIT']" [ngClass]="rtlFloatRight()" class="fa fa-spinner fa-spin form-spinner"></i><span>{{i18n.translate('submit')}}</span></button>
+          </div>
+          <div class="form-buttons mobileButtons">
+            <button type="button" class="btn btn-primary " [disabled]="!validForm('SUBMIT')" (click)="onSubmit('SUBMIT')"><i *ngIf = "isSubmitting['SUBMIT']" [ngClass]="rtlFloatRight()" class="fa fa-spinner fa-spin form-spinner"></i><span>{{i18n.translate('submit')}}</span></button>
+            <button class="btn btn-secondary " type="button" (click)="resetForm()"><span>{{i18n.translate('reset')}}</span></button>
+          </div>
+        </div>
+      </div>
+  
+    </form>
+  
+    </ng-container>
+  
+  </div>
+</div>
+
+
+<div *ngIf="isSuccessfullySubmitted" [ngClass]="rtlDir()" class="final-table">
+
+  <input *ngIf="stateMachineService.isOpenOnInbox() && submitResponse?.status !== 'COMPLETED'" type="hidden" id="hPendingWithValue" [value]="submitResponse.nextApprover.email" />
+  <input *ngIf="stateMachineService.isOpenOnInbox() && submitResponse?.status === 'COMPLETED'" type="hidden" id="hPendingWithValue" [value]="" />
+
+  <input *ngIf="stateMachineService.isOpenOnInbox()" type="hidden" id="hFormId" [value]="submitResponse.id" />
+
+  <div class="alert alert-success alert-dismissable">
+    <p>
+      {{i18n.translate('successSubmited')}}
+    </p>
+  </div>
+
+  <table class="table table-bordered finalTable">
+    <tr>
+      <td class="col-md-3">{{i18n.translate('formTableFormId')}}</td>
+      <td class="col-md-9">{{submitResponse.id}}</td>
+    </tr>
+    <tr>
+      <td class="col-md-3">{{i18n.translate('formTableFormStatus')}}</td>
+      <td class="col-md-9">{{submitResponse.status.value}}</td>
+    </tr>
+    <tr>
+      <td class="col-md-3">{{i18n.translate('formTableCreationDate')}}</td>
+      <td class="col-md-9 noRTL" [ngClass]="rtlAlignRight()">{{submitResponse.creationDate}}</td>
+    </tr>
+    <tr *ngIf="submitResponse?.status?.key === 'PENDING'">
+      <td class="col-md-3">{{i18n.translate('formTablePendingWith')}}</td>
+      <td class="col-md-9">{{submitResponse.nextApprover.name + ' (' + submitResponse.nextApprover.email + ')'}}</td>
+    </tr>
+  </table>
+  <button *ngIf=!stateMachineService.isMobileApp() type="button" onclick="location.href=window.wmConfig.inboxUri;" class="btn btn-primary  back-to-inbox" ><span>{{i18n.translate('formTableBackToInbox')}}</span></button>
+
+</div>
