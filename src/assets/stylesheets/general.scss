@@ -315,6 +315,8 @@ label {
 
 }
 
+
+
 // table
 .table-rwapper {
   margin-top: 30px;
@@ -354,13 +356,21 @@ label {
           background-color: #F4F4F4;
         }
       }
-    }
-
+    }  
     .status {
       width: fit-content;
       min-height: 30px !important;
+      padding: 5px 15px !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      float: none !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: 0 !important;
     }
-
     .request-num {
       color: #4F008C;
       text-decoration: underline;
