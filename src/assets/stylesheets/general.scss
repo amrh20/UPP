@@ -29,7 +29,7 @@
 .panel-heading {
   background: $light-gray !important;
   min-height: 60px !important;
-  color: #000 !important;
+  color: $black !important;
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -65,8 +65,8 @@
 .sevice-wrapper {
   margin-top: 30px;
   margin-bottom: 30px;
-  background-color: #FFFFFF;
-  border: 1px solid #F3F3F1;
+  background-color: $white;
+  border: 1px solid $light-gray;
   padding: 30px;
 
   @media (max-width: 768px) {
@@ -80,7 +80,7 @@
   align-items: center;
 
   h2 {
-    color: #000 !important;
+    color: $black !important;
     font-size: 26px;
     margin: 0 !important;
   }
@@ -96,7 +96,7 @@
   margin: 0 !important;
 
   span {
-    border-right: 1px solid #000;
+    border-right: 1px solid $black;
     padding: 1px 15px !important;
 
     &::before {
@@ -163,7 +163,7 @@
 }
 
 .badgeComments {
-  background: #FF375E !important;
+  background: $coral !important;
   height: 15px !important;
   width: 15px !important;
   align-items: center;
@@ -172,7 +172,7 @@
   right: -7px;
   font-size: 12px !important;
   border-radius: 50%;
-  color: #fff;
+  color: $white;
   display: flex !important;
   justify-content: center;
 
@@ -220,8 +220,8 @@
     }
 
     .success {
-      color: #00C48C !important;
-      background-color: rgba(#00C48C, .12) !important;
+      color: $oasis-light !important;
+      background-color: rgba($oasis-light, .12) !important;
     }
 
     .new {
